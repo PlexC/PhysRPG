@@ -1,0 +1,19 @@
+# Godot 4+ specific ignores
+.godot/
+/android/
+
+# Exports 
+export/
+builds/
+exports/
+
+export_presets.cfg
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+
+**/src/Assets/
+Assets/
+Pittsburgh_Synapse_Flier.png

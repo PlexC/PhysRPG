@@ -1,0 +1,8 @@
+Assets:
+	Font: 
+		Not Jam (https://not-jam.itch.io/not-jam-scrawl-9)
+	BG:
+		Free Game Assets (GUI, Sprite, Tilesets) (https://free-game-assets.itch.io/nature-landscapes-free-pixel-art)
+	UI:
+		tiopalada (https://tiopalada.itch.io/tiny-rpg-mana-soul-gui)
+		Crusenho (https://crusenho.itch.io/icons-essential-pack-free-icons)

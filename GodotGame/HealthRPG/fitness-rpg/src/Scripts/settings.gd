@@ -1,0 +1,35 @@
+extends Control
+
+@onready var Settings = $"."
+@onready var volume_slider = $BG/MarginContainer/VBoxContainer/Volume
+@onready var timers: OptionButton = $BG/MarginContainer/VBoxContainer/Timers
+
+
+
+#loads game settings save visuals to match
+func _ready() -> void:
+	sync_ui_to_settings()
+	
+
+func sync_ui_to_settings() -> void:
+	volume_slider.value = Savemanager.settings["master_volume"]
+	timers.selected = Savemanager.settings["timer"]
+	timer_selection(Savemanager.settings["timer"])
+	
+func master_volume(value)-> void:
+	Savemanager.settings["master_volume"] = value
+	AudioServer.set_bus_volume_db(0, linear_to_db(Savemanager.settings["master_volume"]))
+	Savemanager.save_settings()
+
+
+func timer_selection(index)-> void:
+	Savemanager.settings["timer"] = index
+	Savemanager.save_settings()
+
+
+
+func _on_quit_b_pressed() -> void:
+	Scenechanger.change_scene("res://src/Scenes/start.tscn","")
+
+func _on_close_pressed() -> void:
+	Settings.visible = false

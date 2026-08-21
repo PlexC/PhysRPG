@@ -1,0 +1,233 @@
+[gd_scene format=3 uid="uid://bvq03nrqtt0ko"]
+
+[ext_resource type="Theme" uid="uid://bq416ejphyedn" path="res://src/Assets/Sets/Start_Theme.tres" id="1_ct6jl"]
+[ext_resource type="Script" uid="uid://d1pctm8k4d5b1" path="res://src/Scripts/start.gd" id="1_ffxqt"]
+[ext_resource type="Texture2D" uid="uid://cd464pv7rxoag" path="res://src/Assets/BackGrounds/origbig.png" id="1_ib57d"]
+[ext_resource type="Texture2D" uid="uid://b3pxti2rp6xrw" path="res://src/Assets/Buttons/Tab_Normal.png" id="2_xa4jk"]
+[ext_resource type="Texture2D" uid="uid://6do5wyppns3q" path="res://src/Assets/Buttons/Tab_clicked.png" id="3_ct6jl"]
+[ext_resource type="Texture2D" uid="uid://ns8kd2kkbn0j" path="res://src/Assets/Buttons/Tab_Hover.png" id="4_5x1lp"]
+[ext_resource type="Texture2D" uid="uid://b8v6k7cyqpkor" path="res://src/Assets/Buttons/Tab_Disabled.png" id="5_ffxqt"]
+[ext_resource type="PackedScene" uid="uid://b2yfaplavtj08" path="res://src/Scenes/Settings.tscn" id="7_5x1lp"]
+[ext_resource type="Texture2D" uid="uid://bg0le3gpqii28" path="res://src/Assets/Buttons/optionsButtonNormal.png" id="8_5akpv"]
+[ext_resource type="PackedScene" uid="uid://bpw8wvo22kboe" path="res://src/Scenes/textbox.tscn" id="8_5x1lp"]
+[ext_resource type="Texture2D" uid="uid://bhjm4mbu58xk3" path="res://src/Assets/Buttons/optionsButtonClick.png" id="9_dajgr"]
+[ext_resource type="Texture2D" uid="uid://bu8v7dvgokxnm" path="res://src/Assets/Buttons/optionsButtonHover.png" id="10_jwrto"]
+[ext_resource type="Texture2D" uid="uid://dkxvig56h2k5q" path="res://src/Assets/Buttons/optionsButtonDisable.png" id="11_tfraj"]
+
+[sub_resource type="Theme" id="Theme_ffxqt"]
+
+[node name="Start" type="Control" unique_id=829288816]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ffxqt")
+
+[node name="BG" type="TextureRect" parent="." unique_id=533395981]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_ct6jl")
+texture = ExtResource("1_ib57d")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="BG" unique_id=516431566]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -581.0
+offset_top = 40.0
+offset_right = 581.0
+offset_bottom = 241.0
+grow_horizontal = 2
+theme_override_colors/font_outline_color = Color(0.22469056, 0.17535925, 0, 1)
+theme_override_constants/outline_size = 32
+theme_override_font_sizes/font_size = 200
+text = "Fitness RPG"
+
+[node name="MarginContainer" type="MarginContainer" parent="BG" unique_id=578028463]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BG/MarginContainer" unique_id=311400437]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+
+[node name="Start" type="TextureButton" parent="BG/MarginContainer/HBoxContainer" unique_id=446108500]
+custom_minimum_size = Vector2(334.8, 486)
+layout_mode = 2
+focus_neighbor_left = NodePath("../Credit")
+focus_neighbor_top = NodePath("../Credit")
+focus_neighbor_right = NodePath("../Load")
+focus_neighbor_bottom = NodePath("../Load")
+focus_next = NodePath("../Load")
+focus_previous = NodePath("../Credit")
+texture_normal = ExtResource("2_xa4jk")
+texture_pressed = ExtResource("3_ct6jl")
+texture_hover = ExtResource("4_5x1lp")
+texture_disabled = ExtResource("5_ffxqt")
+texture_focused = ExtResource("4_5x1lp")
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="BG/MarginContainer/HBoxContainer/Start" unique_id=835343949]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -145.0
+offset_top = -75.0
+offset_right = 96.0
+offset_bottom = 26.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Start"
+
+[node name="Load" type="TextureButton" parent="BG/MarginContainer/HBoxContainer" unique_id=363841592]
+custom_minimum_size = Vector2(334.8, 486)
+layout_mode = 2
+focus_neighbor_left = NodePath("../Start")
+focus_neighbor_top = NodePath("../Start")
+focus_neighbor_right = NodePath("../Quit")
+focus_neighbor_bottom = NodePath("../Quit")
+focus_next = NodePath("../Quit")
+focus_previous = NodePath("../Start")
+texture_normal = ExtResource("2_xa4jk")
+texture_pressed = ExtResource("3_ct6jl")
+texture_hover = ExtResource("4_5x1lp")
+texture_disabled = ExtResource("5_ffxqt")
+texture_focused = ExtResource("4_5x1lp")
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="BG/MarginContainer/HBoxContainer/Load" unique_id=230152758]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -145.0
+offset_top = -75.0
+offset_right = 96.0
+offset_bottom = 26.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Load"
+
+[node name="Quit" type="TextureButton" parent="BG/MarginContainer/HBoxContainer" unique_id=1539914718]
+custom_minimum_size = Vector2(334.8, 486)
+layout_mode = 2
+focus_neighbor_left = NodePath("../Load")
+focus_neighbor_top = NodePath("../Load")
+focus_neighbor_right = NodePath("../Credit")
+focus_neighbor_bottom = NodePath("../Credit")
+focus_next = NodePath("../Credit")
+focus_previous = NodePath("../Load")
+texture_normal = ExtResource("2_xa4jk")
+texture_pressed = ExtResource("3_ct6jl")
+texture_hover = ExtResource("4_5x1lp")
+texture_disabled = ExtResource("5_ffxqt")
+texture_focused = ExtResource("4_5x1lp")
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="BG/MarginContainer/HBoxContainer/Quit" unique_id=503781056]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -145.0
+offset_top = -75.0
+offset_right = 96.0
+offset_bottom = 26.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Quit"
+
+[node name="Credit" type="TextureButton" parent="BG/MarginContainer/HBoxContainer" unique_id=317641006]
+custom_minimum_size = Vector2(334.8, 486)
+layout_mode = 2
+focus_neighbor_left = NodePath("../Quit")
+focus_neighbor_top = NodePath("../Quit")
+focus_neighbor_right = NodePath("../Start")
+focus_neighbor_bottom = NodePath(".")
+focus_next = NodePath("../Start")
+focus_previous = NodePath("../Quit")
+texture_normal = ExtResource("2_xa4jk")
+texture_pressed = ExtResource("3_ct6jl")
+texture_hover = ExtResource("4_5x1lp")
+texture_disabled = ExtResource("5_ffxqt")
+texture_focused = ExtResource("4_5x1lp")
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="BG/MarginContainer/HBoxContainer/Credit" unique_id=191670316]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -145.0
+offset_top = -75.0
+offset_right = 96.0
+offset_bottom = 26.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 84
+text = "Credit"
+
+[node name="SettingsB" type="TextureButton" parent="BG" unique_id=1249174185]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.90000004
+anchor_top = 0.081
+anchor_right = 0.97400004
+anchor_bottom = 0.192
+offset_left = -0.20007324
+offset_top = -0.31199646
+offset_right = -0.072021484
+offset_bottom = -0.18400574
+grow_horizontal = 0
+texture_normal = ExtResource("8_5akpv")
+texture_pressed = ExtResource("9_dajgr")
+texture_hover = ExtResource("10_jwrto")
+texture_disabled = ExtResource("11_tfraj")
+stretch_mode = 0
+
+[node name="Settings" parent="." unique_id=1264965048 instance=ExtResource("7_5x1lp")]
+layout_mode = 1
+offset_left = 180.0
+offset_top = 151.0
+offset_right = 180.0
+offset_bottom = 151.0
+
+[node name="Textbox" parent="." unique_id=1014583561 instance=ExtResource("8_5x1lp")]
+custom_minimum_size = Vector2(750, 250)
+layout_mode = 1
+offset_top = -552.0
+offset_bottom = -252.0
+theme = SubResource("Theme_ffxqt")
+
+[connection signal="pressed" from="BG/MarginContainer/HBoxContainer/Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="BG/MarginContainer/HBoxContainer/Load" to="." method="_on_load_pressed"]
+[connection signal="pressed" from="BG/MarginContainer/HBoxContainer/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="BG/MarginContainer/HBoxContainer/Credit" to="." method="_on_credit_pressed"]
+[connection signal="pressed" from="BG/SettingsB" to="." method="_on_settings_b_pressed"]

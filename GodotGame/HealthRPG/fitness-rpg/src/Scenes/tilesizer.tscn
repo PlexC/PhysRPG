@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://biat7h55434no"]
+
+[ext_resource type="Script" uid="uid://bsc70dqh1htlg" path="res://src/Scripts/tilescaler.gd" id="1_gmqpp"]
+
+[node name="Container" type="Container" unique_id=1433249809]
+custom_minimum_size = Vector2(100, 100)
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 0.63500005
+anchor_bottom = 0.21400002
+offset_left = -50.0
+offset_right = 218.71997
+offset_bottom = 159.47198
+grow_horizontal = 2
+script = ExtResource("1_gmqpp")
+tile_scale = 5.0
