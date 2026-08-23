@@ -40,5 +40,3 @@ func spawn_player_at_marker(marker_name: String) -> void:
 	#if player == null or not is_instance_valid(player):
 		#player = PLAYER_SCENE.instantiate()
 		#scene.add_child(player)
-
-	player.global_position = marker.global_position

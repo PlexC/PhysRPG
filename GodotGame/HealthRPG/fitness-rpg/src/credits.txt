@@ -6,3 +6,6 @@ Assets:
 	UI:
 		tiopalada (https://tiopalada.itch.io/tiny-rpg-mana-soul-gui)
 		Crusenho (https://crusenho.itch.io/icons-essential-pack-free-icons)
+	Items:
+		Admurin (https://admurin.itch.io/free-chest-animations)
+		me (Potions)

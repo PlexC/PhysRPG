@@ -27,9 +27,35 @@ func timer_selection(index)-> void:
 	Savemanager.save_settings()
 
 
-
 func _on_quit_b_pressed() -> void:
 	Scenechanger.change_scene("res://src/Scenes/start.tscn","")
 
+
 func _on_close_pressed() -> void:
 	Settings.visible = false
+
+
+func _on_reset_b_pressed() -> void:
+	pass # Replace with function body.
+
+
+func _on_tuti_b_pressed() -> void:
+	if Savemanager.settings["tutoriel"] == false:
+		Savemanager.settings["tutoriel"] = true
+	else:
+		Savemanager.settings["tutoriel"] = false
+	Savemanager.save_settings()
+
+
+func _on_camera_b_pressed() -> void:
+	#TODO add a if no feeds detected make it unable to select
+	Savemanager.settings["webcam"] = true
+	Savemanager.save_settings() 
+	print("Camera mode selected!")
+
+
+func _on_video_b_pressed() -> void:
+	#TODO Auto select this if no feed 
+	Savemanager.settings["webcam"] = false
+	Savemanager.save_settings()
+	print("Video upload mode selected!")

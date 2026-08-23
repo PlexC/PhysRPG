@@ -2,11 +2,15 @@
 
 [ext_resource type="PackedScene" uid="uid://biat7h55434no" path="res://src/Scenes/tilesizer.tscn" id="1_2u7ne"]
 [ext_resource type="PackedScene" uid="uid://c63h0nntdr0pd" path="res://src/Scenes/daily.tscn" id="1_tx72l"]
+[ext_resource type="Script" uid="uid://umuhcr6fb8iy" path="res://src/Scripts/main.gd" id="2_n0mpp"]
 [ext_resource type="Texture2D" uid="uid://bif62dr852i2k" path="res://src/Assets/UI/Dialogbox.png" id="3_2av6j"]
+[ext_resource type="Resource" uid="uid://erol2tj8b5qo" path="res://src/Inv/player_inv.tres" id="3_4vboo"]
 [ext_resource type="Texture2D" uid="uid://irqh6ny0fbs7" path="res://src/Assets/Buttons/ButtonNormal.png" id="4_tx72l"]
 [ext_resource type="Texture2D" uid="uid://0otmehaemoqr" path="res://src/Assets/Buttons/ButtonClicked.png" id="5_1dkgf"]
 [ext_resource type="Texture2D" uid="uid://bmsj08vua5w7u" path="res://src/Assets/Buttons/ButtonHover.png" id="6_vdiyp"]
 [ext_resource type="Texture2D" uid="uid://bgxhbfm4xpc2v" path="res://src/Assets/Buttons/ButtonDisable.png" id="7_n0mpp"]
+[ext_resource type="PackedScene" uid="uid://dv2y82evqomrp" path="res://src/Scenes/cam_display.tscn" id="8_1dkgf"]
+[ext_resource type="PackedScene" uid="uid://dd4gbrmgn7eyk" path="res://src/Scenes/inventory.tscn" id="9_vdiyp"]
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_4vboo"]
 color = Color(1, 0, 0.20784314, 1)
@@ -26,7 +30,14 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.16470589, 0.16470589, 0.16470589, 0.84705883)
+color = Color(0.16470589, 0.16470589, 0.16470589, 1)
+
+[node name="TextureButton" type="TextureButton" parent="ColorRect" unique_id=1854543075]
+layout_mode = 0
+offset_left = 1415.0
+offset_top = 1007.0
+offset_right = 1585.0
+offset_bottom = 1165.0
 
 [node name="Daily" parent="." unique_id=690894354 instance=ExtResource("1_tx72l")]
 layout_mode = 1
@@ -40,6 +51,8 @@ anchor_right = 0.5
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("2_n0mpp")
+inv = ExtResource("3_4vboo")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=577263373]
 layout_mode = 2
@@ -189,3 +202,11 @@ theme_override_constants/outline_size = 8
 theme_override_font_sizes/font_size = 64
 theme_override_styles/focus = SubResource("StyleBoxLine_4vboo")
 text = "Options"
+
+[node name="CamDisplay" parent="." unique_id=1794747629 instance=ExtResource("8_1dkgf")]
+layout_mode = 0
+
+[node name="Inventory" parent="." unique_id=1711573977 instance=ExtResource("9_vdiyp")]
+layout_mode = 1
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/ItemsB" to="MarginContainer" method="_on_items_b_pressed"]

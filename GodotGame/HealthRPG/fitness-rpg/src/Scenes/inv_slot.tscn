@@ -1,0 +1,64 @@
+[gd_scene format=3 uid="uid://d2nh51uitq7i2"]
+
+[ext_resource type="Texture2D" uid="uid://csf8dqy2o2goo" path="res://src/Assets/UI/20251029darkDwellers9SlicesC.png" id="1_7aw0a"]
+[ext_resource type="Script" uid="uid://cdm3rxmutlqv6" path="res://src/Scripts/inv_slotUI.gd" id="1_44ecb"]
+
+[node name="Slot" type="Panel" unique_id=1118823757]
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(50, 50)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -75.0
+offset_top = -75.0
+offset_right = -25.0
+offset_bottom = -25.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+script = ExtResource("1_44ecb")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=198077205]
+scale = Vector2(0.5208329, 0.5208335)
+texture = ExtResource("1_7aw0a")
+centered = false
+
+[node name="ItemDisplay" type="TextureRect" parent="." unique_id=777751432]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="." unique_id=1242656300]
+custom_minimum_size = Vector2(19, 17)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -19.0
+offset_top = -17.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "99"
+horizontal_alignment = 2
+
+[node name="Button" type="Button" parent="." unique_id=1008869754]
+custom_minimum_size = Vector2(45, 45)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -22.5
+offset_top = -22.5
+offset_right = 22.5
+offset_bottom = 22.5
+grow_horizontal = 2
+grow_vertical = 2

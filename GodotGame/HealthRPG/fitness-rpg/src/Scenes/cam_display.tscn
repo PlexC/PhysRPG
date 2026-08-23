@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://dv2y82evqomrp"]
+
+[ext_resource type="Script" uid="uid://bmmdyllgygdhw" path="res://src/Scripts/cam_display.gd" id="1_3c4uw"]
+
+[node name="CamDisplay" type="TextureRect" unique_id=1794747629]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_3c4uw")
+
+[node name="LiveCam" type="TextureRect" parent="." unique_id=1274124243]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="." unique_id=1951914589]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0

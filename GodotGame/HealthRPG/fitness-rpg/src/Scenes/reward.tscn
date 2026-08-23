@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://nln1cr0hb7ho"]
+
+[ext_resource type="SpriteFrames" uid="uid://bdc5mcai87y1u" path="res://src/Assets/Items/Animations/Chests.tres" id="1_am0yh"]
+
+[node name="Reward" type="CanvasLayer" unique_id=2096760131]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1982575498]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Sprite2D" unique_id=901428356]
+sprite_frames = ExtResource("1_am0yh")
+animation = &"chest_open_wood"

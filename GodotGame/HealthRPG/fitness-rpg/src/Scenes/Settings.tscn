@@ -128,8 +128,10 @@ texture_disabled = ExtResource("7_oxvcy")
 stretch_mode = 0
 
 [connection signal="value_changed" from="BG/MarginContainer/VBoxContainer/Volume" to="." method="master_volume"]
-[connection signal="pressed" from="BG/MarginContainer/VBoxContainer/HBoxContainer/CameraB" to="." method="_on_control_info_pressed"]
-[connection signal="pressed" from="BG/MarginContainer/VBoxContainer/HBoxContainer/VideoB" to="." method="_on_control_info_pressed"]
+[connection signal="pressed" from="BG/MarginContainer/VBoxContainer/HBoxContainer/CameraB" to="." method="_on_camera_b_pressed"]
+[connection signal="pressed" from="BG/MarginContainer/VBoxContainer/HBoxContainer/VideoB" to="." method="_on_video_b_pressed"]
 [connection signal="item_selected" from="BG/MarginContainer/VBoxContainer/Timers" to="." method="timer_selection"]
+[connection signal="pressed" from="BG/MarginContainer/VBoxContainer/ResetB" to="." method="_on_reset_b_pressed"]
+[connection signal="pressed" from="BG/MarginContainer/VBoxContainer/TutiB" to="." method="_on_tuti_b_pressed"]
 [connection signal="pressed" from="BG/MarginContainer/VBoxContainer/QuitB" to="." method="_on_quit_b_pressed"]
 [connection signal="pressed" from="BG/MarginContainer/Close" to="." method="_on_close_pressed"]
