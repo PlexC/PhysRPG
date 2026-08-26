@@ -22,7 +22,7 @@ func master_volume(value)-> void:
 	Savemanager.save_settings()
 
 
-func timer_selection(index)-> void:
+func timer_selection(index) -> void:
 	Savemanager.settings["timer"] = index
 	Savemanager.save_settings()
 
@@ -33,10 +33,6 @@ func _on_quit_b_pressed() -> void:
 
 func _on_close_pressed() -> void:
 	Settings.visible = false
-
-
-func _on_reset_b_pressed() -> void:
-	pass # Replace with function body.
 
 
 func _on_tuti_b_pressed() -> void:
@@ -59,3 +55,8 @@ func _on_video_b_pressed() -> void:
 	Savemanager.settings["webcam"] = false
 	Savemanager.save_settings()
 	print("Video upload mode selected!")
+
+
+func _on_select_camera_item_selected(index: int) -> void:
+	Savemanager.settings["camera_name"] = index
+	Savemanager.save_settings()

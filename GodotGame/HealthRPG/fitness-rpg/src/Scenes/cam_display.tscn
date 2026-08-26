@@ -1,18 +1,37 @@
 [gd_scene format=3 uid="uid://dv2y82evqomrp"]
 
 [ext_resource type="Script" uid="uid://bmmdyllgygdhw" path="res://src/Scripts/cam_display.gd" id="1_3c4uw"]
+[ext_resource type="Shader" uid="uid://dm7djo1y74e4b" path="res://src/Cam/Camera.gdshader" id="2_b7tu0"]
+[ext_resource type="Script" uid="uid://dsmmar5bb7kw3" path="res://src/Scripts/live_cam.gd" id="4_7prhr"]
 
-[node name="CamDisplay" type="TextureRect" unique_id=1794747629]
-offset_right = 40.0
-offset_bottom = 40.0
+[sub_resource type="CameraTexture" id="CameraTexture_nf64w"]
+
+[sub_resource type="CameraTexture" id="CameraTexture_4o8bu"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wow4y"]
+shader = ExtResource("2_b7tu0")
+shader_parameter/camera_y = SubResource("CameraTexture_4o8bu")
+shader_parameter/camera_CbCr = SubResource("CameraTexture_nf64w")
+
+[node name="CamDisplay" type="TextureRect" unique_id=501554696]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -870.0
+offset_bottom = -262.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_3c4uw")
 
-[node name="LiveCam" type="TextureRect" parent="." unique_id=1274124243]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="LiveCam" type="TextureRect" parent="." unique_id=1763297185]
+material = SubResource("ShaderMaterial_wow4y")
+layout_mode = 1
+offset_right = 110.35776
+offset_bottom = 200.69847
+scale = Vector2(7.9921885, 4.3398438)
+script = ExtResource("4_7prhr")
 
 [node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="." unique_id=1951914589]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 499.0
+offset_bottom = 490.0

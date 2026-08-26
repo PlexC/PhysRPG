@@ -18,8 +18,6 @@ func _process(_delta: float) -> void:
 
 func _on_start_pressed() -> void:
 	Scenechanger.change_scene("res://src/Scenes/main.tscn","")
-	release_focus()
-
 
 func _on_load_pressed() -> void:
 	release_focus()

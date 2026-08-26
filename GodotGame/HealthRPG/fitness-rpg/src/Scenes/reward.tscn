@@ -1,8 +1,10 @@
 [gd_scene format=3 uid="uid://nln1cr0hb7ho"]
 
 [ext_resource type="SpriteFrames" uid="uid://bdc5mcai87y1u" path="res://src/Assets/Items/Animations/Chests.tres" id="1_am0yh"]
+[ext_resource type="Script" uid="uid://dd6nwlnaphh27" path="res://src/Scripts/reward.gd" id="1_bylnm"]
 
 [node name="Reward" type="CanvasLayer" unique_id=2096760131]
+script = ExtResource("1_bylnm")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1982575498]
 

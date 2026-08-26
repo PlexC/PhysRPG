@@ -103,9 +103,15 @@ popup/item_3/id = 2
 popup/item_4/text = "Until Detected"
 popup/item_4/id = 3
 
-[node name="ResetB" type="Button" parent="BG/MarginContainer/VBoxContainer" unique_id=693682020]
+[node name="SelectCameraL" type="Label" parent="BG/MarginContainer/VBoxContainer" unique_id=1803106847]
 layout_mode = 2
-text = "Reset Tracker"
+text = "Select Camera:"
+
+[node name="SelectCamera" type="OptionButton" parent="BG/MarginContainer/VBoxContainer" unique_id=1908540907]
+layout_mode = 2
+item_count = 1
+popup/item_0/text = "Null"
+popup/item_0/id = 0
 
 [node name="TutiB" type="Button" parent="BG/MarginContainer/VBoxContainer" unique_id=1505120891]
 layout_mode = 2
@@ -131,7 +137,7 @@ stretch_mode = 0
 [connection signal="pressed" from="BG/MarginContainer/VBoxContainer/HBoxContainer/CameraB" to="." method="_on_camera_b_pressed"]
 [connection signal="pressed" from="BG/MarginContainer/VBoxContainer/HBoxContainer/VideoB" to="." method="_on_video_b_pressed"]
 [connection signal="item_selected" from="BG/MarginContainer/VBoxContainer/Timers" to="." method="timer_selection"]
-[connection signal="pressed" from="BG/MarginContainer/VBoxContainer/ResetB" to="." method="_on_reset_b_pressed"]
+[connection signal="item_selected" from="BG/MarginContainer/VBoxContainer/SelectCamera" to="." method="_on_select_camera_item_selected"]
 [connection signal="pressed" from="BG/MarginContainer/VBoxContainer/TutiB" to="." method="_on_tuti_b_pressed"]
 [connection signal="pressed" from="BG/MarginContainer/VBoxContainer/QuitB" to="." method="_on_quit_b_pressed"]
 [connection signal="pressed" from="BG/MarginContainer/Close" to="." method="_on_close_pressed"]

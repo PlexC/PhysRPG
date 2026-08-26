@@ -8,7 +8,8 @@ var settings = {
 	"master_volume": 0.5,
 	"timer": 0,
 	"webcam": true,  
-	"tutoriel": false
+	"tutoriel": false,
+	"camera_name":""
 }
 
 var game_state = {

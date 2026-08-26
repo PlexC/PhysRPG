@@ -1,0 +1,169 @@
+[gd_scene format=3 uid="uid://c6p53t6o0tp47"]
+
+[ext_resource type="Script" uid="uid://bpllex4lryhrn" path="res://src/Scripts/options.gd" id="1_cu5ha"]
+[ext_resource type="Texture2D" uid="uid://irqh6ny0fbs7" path="res://src/Assets/Buttons/ButtonNormal.png" id="2_yaaiy"]
+[ext_resource type="Texture2D" uid="uid://0otmehaemoqr" path="res://src/Assets/Buttons/ButtonClicked.png" id="3_d2s0o"]
+[ext_resource type="Texture2D" uid="uid://bmsj08vua5w7u" path="res://src/Assets/Buttons/ButtonHover.png" id="4_nbebi"]
+[ext_resource type="Texture2D" uid="uid://bgxhbfm4xpc2v" path="res://src/Assets/Buttons/ButtonDisable.png" id="5_cn182"]
+[ext_resource type="PackedScene" uid="uid://dd4gbrmgn7eyk" path="res://src/Scenes/inventory.tscn" id="6_yaaiy"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_4vboo"]
+color = Color(1, 0, 0.20784314, 1)
+
+[node name="Options" type="Control" unique_id=765785473]
+custom_minimum_size = Vector2(300, 450)
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_cu5ha")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1874203432]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=487809199]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 100
+
+[node name="SkillB" type="TextureButton" parent="VBoxContainer/HBoxContainer" unique_id=306085917]
+custom_minimum_size = Vector2(384, 192)
+layout_mode = 2
+texture_normal = ExtResource("2_yaaiy")
+texture_pressed = ExtResource("3_d2s0o")
+texture_hover = ExtResource("4_nbebi")
+texture_disabled = ExtResource("5_cn182")
+texture_focused = ExtResource("4_nbebi")
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/SkillB" unique_id=1359298483]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -8.5
+offset_right = 20.0
+offset_bottom = 8.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 64
+theme_override_styles/focus = SubResource("StyleBoxLine_4vboo")
+text = "Skill"
+
+[node name="ItemsB" type="TextureButton" parent="VBoxContainer/HBoxContainer" unique_id=1389074375]
+custom_minimum_size = Vector2(384, 192)
+layout_mode = 2
+size_flags_horizontal = 4
+texture_normal = ExtResource("2_yaaiy")
+texture_pressed = ExtResource("3_d2s0o")
+texture_hover = ExtResource("4_nbebi")
+texture_disabled = ExtResource("5_cn182")
+texture_focused = ExtResource("4_nbebi")
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/ItemsB" unique_id=1505943368]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -8.5
+offset_right = 20.0
+offset_bottom = 8.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 64
+theme_override_styles/focus = SubResource("StyleBoxLine_4vboo")
+text = "Items"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer" unique_id=1631971295]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_constants/separation = 100
+
+[node name="SaveB" type="TextureButton" parent="VBoxContainer/HBoxContainer2" unique_id=1147965393]
+custom_minimum_size = Vector2(384, 192)
+layout_mode = 2
+texture_normal = ExtResource("2_yaaiy")
+texture_pressed = ExtResource("3_d2s0o")
+texture_hover = ExtResource("4_nbebi")
+texture_disabled = ExtResource("5_cn182")
+texture_focused = ExtResource("4_nbebi")
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer2/SaveB" unique_id=1655864034]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -8.5
+offset_right = 20.0
+offset_bottom = 8.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 64
+theme_override_styles/focus = SubResource("StyleBoxLine_4vboo")
+text = "Save"
+
+[node name="OptionsB" type="TextureButton" parent="VBoxContainer/HBoxContainer2" unique_id=1906155652]
+custom_minimum_size = Vector2(384, 192)
+layout_mode = 2
+texture_normal = ExtResource("2_yaaiy")
+texture_pressed = ExtResource("3_d2s0o")
+texture_hover = ExtResource("4_nbebi")
+texture_disabled = ExtResource("5_cn182")
+texture_focused = ExtResource("4_nbebi")
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer2/OptionsB" unique_id=1624788577]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -8.5
+offset_right = 20.0
+offset_bottom = 8.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 64
+theme_override_styles/focus = SubResource("StyleBoxLine_4vboo")
+text = "Options"
+
+[node name="Inventory" parent="." unique_id=1711573977 instance=ExtResource("6_yaaiy")]
+layout_mode = 1
+offset_left = 9.0
+offset_top = -384.0
+offset_right = 9.0
+offset_bottom = -384.0
+
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/SkillB" to="." method="_on_skill_b_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/ItemsB" to="." method="_on_items_b_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer2/SaveB" to="." method="_on_save_b_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer2/OptionsB" to="." method="_on_options_b_pressed"]
