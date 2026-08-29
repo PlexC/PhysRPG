@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://dgrfitoucd2an"]
+
+[ext_resource type="Script" uid="uid://sj54g0w6pbyt" path="res://src/Scripts/enemy_button.gd" id="2_51hqs"]
+[ext_resource type="PackedScene" uid="uid://b8a1h8orb8us7" path="res://src/Scenes/at_bbar.tscn" id="2_p1snd"]
+[ext_resource type="SpriteFrames" uid="uid://bdt1dy5dsy31t" path="res://src/Assets/Enemies/RedWolf.tres" id="3_p1snd"]
+
+[node name="EnemyButton" type="TextureButton" unique_id=2013717183]
+offset_left = 563.0
+offset_top = 374.0
+offset_right = 691.0
+offset_bottom = 502.0
+size_flags_horizontal = 4
+script = ExtResource("2_51hqs")
+
+[node name="ATBbar" parent="." unique_id=201888845 instance=ExtResource("2_p1snd")]
+layout_mode = 0
+offset_top = -39.0
+offset_bottom = -18.0
+script = null
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1510083349]
+
+[node name="Visuals" type="Node2D" parent="." unique_id=1937784816]
+
+[node name="Sprite" type="AnimatedSprite2D" parent="Visuals" unique_id=1386158920]
+position = Vector2(77, 16)
+scale = Vector2(2, 2)
+sprite_frames = ExtResource("3_p1snd")
+animation = &"attack"

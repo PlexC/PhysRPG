@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 Savemanager="*uid://bllabhrcj5ohc"
 Scenechanger="*uid://0r78s1auvvhq"
 Load="*uid://cmjyyxmfwryur"
+Globals="*uid://qavjldaudkjt"
 
 [display]
 

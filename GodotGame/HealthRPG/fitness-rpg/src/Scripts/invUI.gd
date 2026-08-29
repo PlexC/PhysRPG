@@ -2,7 +2,6 @@ extends Control
 
 #if need other places to have inventory
 #@export var inv = Inventory
-
 @onready var inv: Inventory = preload("res://src/Inv/player_inv.tres")
 @onready var slots: Array = $Container/NinePatchRect/GridContainer.get_children()
 

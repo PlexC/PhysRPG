@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://di83r5141bwgu"]
+
+[ext_resource type="Script" uid="uid://dupy68h65gs0v" path="res://src/Scripts/player_button.gd" id="2_togoy"]
+[ext_resource type="SpriteFrames" uid="uid://c0xjsihespww7" path="res://src/Assets/Player/player_animation.tres" id="4_togoy"]
+
+[node name="BattlePlayer" type="TextureButton" unique_id=1930472781]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -373.0
+offset_top = 37.0
+offset_right = -245.0
+offset_bottom = 165.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_togoy")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2068401321]
+
+[node name="Visuals" type="Node2D" parent="." unique_id=1942869634]
+
+[node name="Sprite" type="AnimatedSprite2D" parent="Visuals" unique_id=1972028657]
+position = Vector2(62, 73)
+scale = Vector2(3, 3)
+sprite_frames = ExtResource("4_togoy")
+animation = &"walk"

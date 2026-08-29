@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://bjk6vj0mblsq7"]
 
+[ext_resource type="Script" uid="uid://umuhcr6fb8iy" path="res://src/Scripts/main.gd" id="1_1dkgf"]
 [ext_resource type="PackedScene" uid="uid://c63h0nntdr0pd" path="res://src/Scenes/daily.tscn" id="1_tx72l"]
 [ext_resource type="Texture2D" uid="uid://b0oegjsd47huo" path="res://src/Assets/Buttons/Trophy.png" id="1_vgwx1"]
 [ext_resource type="Texture2D" uid="uid://duhiwcyrddx5m" path="res://src/Assets/Buttons/Trophyclicked.png" id="2_5na2v"]
@@ -15,6 +16,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_1dkgf")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=457042013]
 layer = -5
@@ -29,22 +31,22 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.16470589, 0.16470589, 0.16470589, 1)
 
-[node name="Daily" parent="." unique_id=690894354 instance=ExtResource("1_tx72l")]
-layout_mode = 1
-script = ExtResource("3_vdiyp")
-
-[node name="DailyB" type="TextureButton" parent="Daily" unique_id=1854543075]
+[node name="DailyB" type="TextureButton" parent="." unique_id=1854543075]
 layout_mode = 0
-offset_left = 354.0
-offset_top = 880.0
-offset_right = 524.0
-offset_bottom = 1038.0
+offset_left = 1504.0
+offset_top = 940.0
+offset_right = 1674.0
+offset_bottom = 1098.0
 texture_normal = ExtResource("1_vgwx1")
 texture_pressed = ExtResource("2_5na2v")
 texture_hover = ExtResource("3_wf0w2")
 texture_disabled = ExtResource("2_5na2v")
 texture_focused = ExtResource("3_wf0w2")
 stretch_mode = 0
+
+[node name="Daily" parent="." unique_id=690894354 instance=ExtResource("1_tx72l")]
+layout_mode = 1
+script = ExtResource("3_vdiyp")
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=445213118]
 custom_minimum_size = Vector2(1000, 1152)
@@ -68,4 +70,4 @@ offset_top = 704.0
 offset_right = 1000.0
 offset_bottom = 1154.0
 
-[connection signal="pressed" from="Daily/DailyB" to="." method="_on_daily_b_pressed"]
+[connection signal="pressed" from="DailyB" to="." method="_on_daily_b_pressed"]

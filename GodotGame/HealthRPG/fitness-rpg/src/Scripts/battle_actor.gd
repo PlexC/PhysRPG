@@ -21,7 +21,7 @@ var gold: int = 0
 var level: int = 1
 
 
-func _init(_hp: int = 1, _strength: int = 1, _level: int = 1, _should_flip: bool = false, _scale: float = 3.0) -> void:
+func _init(_hp: int = 1, _strength: int = 1, _level: int = 1, _should_flip: bool = false, _scale: float = 2.0) -> void:
 	hp_max = _hp
 	hp = _hp
 	strength = _strength

@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://doitnjaidpii4" path="res://src/Scripts/battle.gd" id="1_dvr3q"]
 [ext_resource type="PackedScene" uid="uid://biat7h55434no" path="res://src/Scenes/tilesizer.tscn" id="1_gia42"]
 [ext_resource type="Texture2D" uid="uid://bif62dr852i2k" path="res://src/Assets/UI/Dialogbox.png" id="2_hntum"]
-[ext_resource type="Texture2D" uid="uid://dkmx3g8rf8b17" path="res://icon.svg" id="4_68q6u"]
 [ext_resource type="Texture2D" uid="uid://byvvdaqonadsd" path="res://src/Assets/BackGrounds/Parallax/DarkForest/Layer_0009_2.png" id="4_dvr3q"]
 [ext_resource type="Texture2D" uid="uid://ubumog2kugy8" path="res://src/Assets/BackGrounds/Parallax/DarkForest/Layer_0008_3.png" id="5_48yld"]
 [ext_resource type="Texture2D" uid="uid://c3h5lux4vixyk" path="res://src/Assets/BackGrounds/Parallax/DarkForest/Layer_0002_7.png" id="6_y7fya"]
@@ -14,6 +13,9 @@
 [ext_resource type="Texture2D" uid="uid://bxke6piown7ch" path="res://src/Assets/BackGrounds/Parallax/DarkForest/Layer_0005_5.png" id="11_bq0hm"]
 [ext_resource type="Texture2D" uid="uid://svwadhptqdhq" path="res://src/Assets/BackGrounds/Parallax/DarkForest/Layer_0003_6.png" id="12_y1yow"]
 [ext_resource type="Texture2D" uid="uid://c16ppov5e5sb5" path="res://src/Assets/BackGrounds/Parallax/DarkForest/Layer_0011_0.png" id="13_t440d"]
+[ext_resource type="PackedScene" uid="uid://di83r5141bwgu" path="res://src/Scenes/battle_player.tscn" id="14_48yld"]
+[ext_resource type="PackedScene" uid="uid://dgrfitoucd2an" path="res://src/Scenes/enemy_button.tscn" id="15_y7fya"]
+[ext_resource type="PackedScene" uid="uid://cmcfxpnl44b6g" path="res://src/Scenes/player_info_bar.tscn" id="16_y7fya"]
 
 [node name="Battle" type="Control" unique_id=344356938]
 custom_minimum_size = Vector2(333, 700)
@@ -156,20 +158,19 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="TextureButton" type="TextureButton" parent="Player" unique_id=1030487239]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -373.0
-offset_top = 37.0
-offset_right = -245.0
-offset_bottom = 165.0
-grow_horizontal = 2
-grow_vertical = 2
-texture_normal = ExtResource("4_68q6u")
+[node name="BattlePlayer" parent="Player" unique_id=1930472781 instance=ExtResource("14_48yld")]
+layout_mode = 0
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 153.0
+offset_top = 362.0
+offset_right = 281.0
+offset_bottom = 490.0
+grow_horizontal = 1
+grow_vertical = 1
 
 [node name="Enemies" type="Control" parent="." unique_id=2025851818]
 layout_mode = 1
@@ -179,26 +180,35 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="TextureButton" type="TextureButton" parent="Enemies" unique_id=1506824945]
+[node name="EnemyButton" parent="Enemies" unique_id=2013717183 instance=ExtResource("15_y7fya")]
 layout_mode = 0
-offset_left = 563.0
-offset_top = 374.0
-offset_right = 691.0
-offset_bottom = 502.0
-texture_normal = ExtResource("4_68q6u")
+offset_left = 665.0
+offset_top = 349.0
+offset_right = 793.0
+offset_bottom = 477.0
 
-[node name="TextureButton2" type="TextureButton" parent="Enemies" unique_id=1616982006]
+[node name="EnemyButton2" parent="Enemies" unique_id=1705446938 instance=ExtResource("15_y7fya")]
 layout_mode = 0
-offset_left = 739.0
-offset_top = 351.0
-offset_right = 867.0
-offset_bottom = 479.0
-texture_normal = ExtResource("4_68q6u")
+offset_left = 768.0
+offset_top = 389.0
+offset_right = 896.0
+offset_bottom = 517.0
 
-[node name="TextureButton3" type="TextureButton" parent="Enemies" unique_id=1445102663]
+[node name="EnemyButton3" parent="Enemies" unique_id=1175150612 instance=ExtResource("15_y7fya")]
 layout_mode = 0
-offset_left = 692.0
-offset_top = 422.0
-offset_right = 820.0
-offset_bottom = 550.0
-texture_normal = ExtResource("4_68q6u")
+offset_left = 568.0
+offset_top = 388.0
+offset_right = 696.0
+offset_bottom = 516.0
+
+[node name="PlayerInfoBar" type="Control" parent="." unique_id=776906662]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="BattlePlayerBar" parent="PlayerInfoBar" unique_id=2071304773 instance=ExtResource("16_y7fya")]
+layout_mode = 0
+offset_left = 77.0
+offset_top = 592.0
+offset_right = 599.0
+offset_bottom = 623.0

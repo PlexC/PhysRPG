@@ -1,0 +1,87 @@
+[gd_scene format=3 uid="uid://cmcfxpnl44b6g"]
+
+[ext_resource type="FontFile" uid="uid://bakcqgt3lou5i" path="res://src/Assets/Fonts/NotJamScrawl9.ttf" id="1_8u2c4"]
+[ext_resource type="Script" uid="uid://d0b4yj4xu6jrf" path="res://src/Scripts/player_info_bar.gd" id="1_c1e1j"]
+[ext_resource type="PackedScene" uid="uid://b8a1h8orb8us7" path="res://src/Scenes/at_bbar.tscn" id="2_047ae"]
+
+[sub_resource type="Animation" id="Animation_ds20c"]
+length = 0.001
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_c1e1j"]
+resource_name = "highlight"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.36666667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0.5254902)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_46xdv"]
+_data = {
+&"RESET": SubResource("Animation_ds20c"),
+&"highlight": SubResource("Animation_c1e1j")
+}
+
+[node name="BattlePlayerBar" type="HBoxContainer" unique_id=2071304773]
+theme_override_constants/separation = 20
+script = ExtResource("1_c1e1j")
+
+[node name="Name" type="Label" parent="." unique_id=859889809]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0.82, 0.6423333, 0, 1)
+theme_override_font_sizes/font_size = 30
+text = "Player"
+
+[node name="Health" type="Label" parent="." unique_id=1197443337]
+texture_filter = 2
+custom_minimum_size = Vector2(16, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_colors/font_color = Color(0.82080704, 0.009149584, 0, 1)
+theme_override_fonts/font = ExtResource("1_8u2c4")
+theme_override_font_sizes/font_size = 23
+text = "100"
+horizontal_alignment = 2
+
+[node name="SP" type="Label" parent="." unique_id=1490213829]
+texture_filter = 2
+custom_minimum_size = Vector2(16, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_colors/font_color = Color(0.10524806, 0.26784694, 1, 1)
+theme_override_fonts/font = ExtResource("1_8u2c4")
+theme_override_font_sizes/font_size = 23
+text = "200"
+horizontal_alignment = 2
+
+[node name="ATBbar" parent="." unique_id=1831620345 instance=ExtResource("2_047ae")]
+layout_mode = 2
+size_flags_horizontal = 10
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=261793615]
+libraries/ = SubResource("AnimationLibrary_46xdv")
+
+[connection signal="filled" from="ATBbar" to="." method="_on_at_bbar_filled"]

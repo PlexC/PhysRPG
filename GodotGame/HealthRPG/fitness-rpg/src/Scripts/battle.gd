@@ -27,25 +27,21 @@ var action: Actions = Actions.FIGHT
 var player: BattleActor = null
 
 
-@onready var _gui: Control = $GUIMargin
 @onready var _options: Control = $Options
-@onready var _options_menu: Menu = $Options/Menu
-@onready var _enemies_menu: Menu = $Enemeies
-@onready var _players_menu: Menu = $Players
-@onready var _players_infos: Array = $GUIMargin/Bottom/Players/MarginContainer/PlayerInfos.get_children()
+#@onready var _options_menu: Control = $Options/Menu
+@onready var _enemies_menu: Control = $Enemies
+@onready var _players_menu: Control = $Player
+@onready var _players_infos: Array = $PlayerInfoBar.get_children()
 
 
 func _ready() -> void:
-	#Musicmanager.play("res://Utility/battle.mp3")
-	_options.hide()
+	#Musicmanager.play("res://Utility/battle.mp3"
+	#_options.hide()
 	
-	var player_buttons = _players_menu.get_buttons()
-	
-	
-	var enemy_buttons = _enemies_menu.get_buttons()
-
-	##GRAB DATA FROM SCENE MANAGER
-	var battle_squad = SceneManager.pending_enemy_data
+	var player_buttons = _players_menu.get_children()
+	var enemy_buttons = _enemies_menu.get_children()
+	##GRAB DATA 
+	var battle_squad = Scenechanger.pending_enemy_data
 	#
 	## Safety Fallback (Test Mode)
 	#if battle_squad.is_empty():
@@ -72,7 +68,7 @@ func _ready() -> void:
 		player_info.atb_ready.connect(_on_player_atb_ready.bind(player_info))
 		data.defeated.connect(_on_battle_actor_defeated.bind(data))
 		
-	for enemy_button in _enemies_menu.get_buttons():
+	for enemy_button in _enemies_menu.get_children():
 		data = enemy_button.data
 		if data == null:
 			continue
@@ -89,7 +85,7 @@ func _unhandled_input(event: InputEvent) -> void:
 				pass
 			States.TARGETS:
 				state = States.OPTIONS
-				_options_menu.button_focus()
+				#_options_menu.button_focus()
 	if event.is_action_pressed("debug_win"): #mapped input
 		#if SceneManager.is_boss_battle:
 			#return
@@ -110,9 +106,9 @@ func find_valid_target(target: BattleActor)->BattleActor:
 	var target_buttons: Array = []
 	var target_is_friendly:bool = target.friendly
 	if target_is_friendly:
-		target_buttons = _players_menu.get_buttons()
+		target_buttons = _players_menu.get_children()
 	else:
-		target_buttons = _enemies_menu.get_buttons()
+		target_buttons = _enemies_menu.get_children()
 	target = null
 	target_buttons.shuffle()
 	for i in range(target_buttons.size()):
@@ -131,7 +127,6 @@ func end() -> void:
 		player_atb_queue.clear()
 		_options.hide()
 		await get_tree().create_timer(0.2).timeout
-		_gui.hide()
 		#await get_tree().physics_frame
 		for player_info in _players_infos:
 			player_info.highlight(false)
@@ -141,32 +136,15 @@ func end() -> void:
 		match state:
 			States.VICTORY:
 			# Give Rewards (Fake for now)
-				for member in Data.party:
+				for member in Savemanager.party:
 						member.hp = member.hp_max
 						print("Victory! Gained XP and Gold.")
-				if SceneManager.current_boss_id == "boss_1":
-					SceneManager.play_cutscene("cutscene_2")
-					return
-				if SceneManager.current_boss_id == "boss_2":
-					SceneManager.play_cutscene("cutscene_6")
-					return
-				elif SceneManager.current_boss_id == "boss_3":
-					SceneManager.play_cutscene("cutscene_7")
-					return
-				#normal
-				SceneManager.return_to_overworld()
+				
 			
 			States.GAMEOVER:
-			# Restart Battle? Or Game Over Screen?
-				# "fight boss1(always lose)--->cutscene2"
-				if SceneManager.current_boss_id == "boss_1":
-					# Heal party so they aren't dead in the next cutscene/overworld
-					for member in Data.party:
-						member.hp = member.hp_max
-					SceneManager.play_cutscene("cutscene_2")
-					return
+
 				#normal
-				for member in Data.party:
+				for member in Savemanager.party:
 					member.hp = member.hp_max
 				print("Defeat... Restarting Battle.")
 				get_tree().reload_current_scene()
@@ -181,23 +159,18 @@ func advance_atb_queue(remove_front:bool = true) -> void:
 		return 
 	
 	if remove_front:
-		var current_player_info_bar:PlayerInfoBar = player_atb_queue.pop_front()
+		var current_player_info_bar: PlayerInfoBar = player_atb_queue.pop_front()
 		current_player_info_bar.highlight(false)
 	
 	if player_atb_queue.is_empty():
 		get_viewport().gui_release_focus()
-		_options.hide()
-		_curser.hide()
-		_down_cursor.hide()
 	else:
 		var next_player_info_bar: PlayerInfoBar = player_atb_queue.front()
 		var index:int = next_player_info_bar.get_index()
 		next_player_info_bar.highlight()
-		player = Data.party[index]
+		player = Savemanager.party[index]
 		_options.show()
-		_options_menu.button_focus(0)
-		_down_cursor.show()
-		_down_cursor.global_position = _players_menu.get_buttons()[index].global_position - Vector2(-35,80)
+		#_options_menu.button_focus(0)
 
 func wait(duration:float)->void:
 	await get_tree().create_timer(duration).timeout
@@ -220,7 +193,7 @@ func run_event()->void:
 		run_event()
 	
 	#ensure valid target
-	var target_is_friendly:bool = Data.party.has(target)
+	var target_is_friendly:bool = Savemanager.party.has(target)
 	target = find_valid_target(target)
 	
 	if target == null:
@@ -237,7 +210,7 @@ func run_event()->void:
 			pass
 	await get_tree().create_timer(0.5).timeout
 	if actor.friendly:
-		_players_infos[Data.party.find(actor)].reset()
+		_players_infos[Savemanager.party.find(actor)].reset()
 	else:
 		var enemies: Array = _enemies_menu.get_children()
 		for enemy in enemies:
@@ -275,7 +248,7 @@ func _on_player_atb_ready(player_info: PlayerInfoBar) -> void:
 		#_options_menu.button_focus(0)
 
 func _on_enemy_atb_ready(enemy: BattleActor) -> void:
-	var target: BattleActor = Data.party.pick_random()
+	var target: BattleActor = Savemanager.party.pick_random()
 	add_event([enemy,target,Actions.FIGHT])
 	
 
@@ -297,7 +270,7 @@ func _on_battle_actor_defeated(data: BattleActor) -> void:
 		await get_tree().physics_frame
 		end()
 	
-	var player_index:int = Data.party.find(data)
+	var player_index:int = Savemanager.party.find(data)
 	if player_index != -1:
 		var player_info: PlayerInfoBar =  _players_infos[player_index]
 		player_atb_queue.erase(player_info)

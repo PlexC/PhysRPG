@@ -9,3 +9,7 @@ Assets:
 	Items:
 		Admurin (https://admurin.itch.io/free-chest-animations)
 		me (Potions)
+	Entity Sprites:
+		Mattz Art (https://xzany.itch.io/free-knight-2d-pixel-art)
+		Free Game Assets (GUI, Sprite, Tilesets) (https://free-game-assets.itch.io/free-yokai-pixel-sprite-sheets,https://free-game-assets.itch.io/free-werewolf-sprite-sheets-pixel-art)
+		Elthen's Pixel Art Shop (https://elthen.itch.io/2d-pixel-art-minotaur-sprites)

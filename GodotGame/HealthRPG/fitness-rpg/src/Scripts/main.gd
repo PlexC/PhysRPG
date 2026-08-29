@@ -26,7 +26,3 @@ func _on_daily_b_pressed() -> void:
 		daily.visible = true
 	else:
 		daily.visible = false
-
-
-func _on_items_b_pressed() -> void:
-	pass # Replace with function body.
