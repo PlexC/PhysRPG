@@ -1,6 +1,6 @@
 class_name main extends Control
 
-@onready var inventory: Control = $Inventory
+
 @onready var daily: Control = $Daily
 
 @export var inv: Inventory
@@ -8,6 +8,7 @@ class_name main extends Control
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	Savemanager.save_game()
 	daily.visible = false
 
 
@@ -16,9 +17,6 @@ func _process(delta: float) -> void:
 	pass
 
 
-
-func add_items(item):
-	inv.insert(item)
 
 
 func _on_daily_b_pressed() -> void:

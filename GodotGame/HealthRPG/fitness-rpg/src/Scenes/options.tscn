@@ -6,11 +6,15 @@
 [ext_resource type="Texture2D" uid="uid://bmsj08vua5w7u" path="res://src/Assets/Buttons/ButtonHover.png" id="4_nbebi"]
 [ext_resource type="Texture2D" uid="uid://bgxhbfm4xpc2v" path="res://src/Assets/Buttons/ButtonDisable.png" id="5_cn182"]
 [ext_resource type="PackedScene" uid="uid://dd4gbrmgn7eyk" path="res://src/Scenes/inventory.tscn" id="6_yaaiy"]
+[ext_resource type="Script" uid="uid://b6qwwrx3qc6n0" path="res://src/Scripts/skills.gd" id="7_cn182"]
 [ext_resource type="PackedScene" uid="uid://biat7h55434no" path="res://src/Scenes/tilesizer.tscn" id="7_d2s0o"]
 [ext_resource type="Texture2D" uid="uid://x4jpvulx0sid" path="res://src/Assets/UI/20250420manaSoul9SlicesC-Sheet.png" id="8_nbebi"]
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_4vboo"]
 color = Color(1, 0, 0.20784314, 1)
+
+[sub_resource type="Theme" id="Theme_cn182"]
+Button/font_sizes/font_size = 45
 
 [node name="Options" type="Control" unique_id=765785473]
 custom_minimum_size = Vector2(300, 450)
@@ -176,6 +180,7 @@ offset_top = -613.0
 offset_right = 36.0
 offset_bottom = 117.0
 grow_vertical = 2
+script = ExtResource("7_cn182")
 
 [node name="Container" parent="Skills" unique_id=1433249809 instance=ExtResource("7_d2s0o")]
 custom_minimum_size = Vector2(420, 720)
@@ -206,8 +211,30 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 36
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 36
+
+[node name="VScrollBar" type="VScrollBar" parent="Skills/MarginContainer" unique_id=1715385405]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Skills/MarginContainer/VScrollBar" unique_id=2010043762]
+layout_mode = 0
+offset_left = -362.0
+offset_right = 8.0
+offset_bottom = 658.0
+theme = SubResource("Theme_cn182")
+
+[node name="Attack" type="Button" parent="Skills/MarginContainer/VScrollBar/VBoxContainer" unique_id=751064588]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Punch
+"
 
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/SkillB" to="." method="_on_skill_b_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/ItemsB" to="." method="_on_items_b_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer2/SaveB" to="." method="_on_save_b_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer2/OptionsB" to="." method="_on_options_b_pressed"]
+[connection signal="skill_selected" from="Skills" to="." method="_on_skill_selected"]

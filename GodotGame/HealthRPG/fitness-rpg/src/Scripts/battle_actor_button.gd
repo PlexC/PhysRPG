@@ -20,7 +20,7 @@ func set_data(_data: BattleActor) ->void:
 			_sprite.sprite_frames = data.sprite_frames
 			_sprite.play("idle") # Auto-plays the idle animation from the file
 			# 2. AUTO-SIZE THE BUTTON
-			# AnimatedSprite2D works slightly differently, we get the size of the first frame
+			# get the size of the first frame
 			var texture = data.sprite_frames.get_frame_texture("idle", 0)
 			if texture:
 				custom_minimum_size = texture.get_size() * data.scale
@@ -29,8 +29,8 @@ func set_data(_data: BattleActor) ->void:
 	#elif data.texture:
 		#_sprite.texture = data.texture
 	elif data.texture:
-		# AnimatedSprite2D cannot take a simple texture.
-		# We must create a temporary "SpriteFrames" container for it.
+		# AnimatedSprite2D cant take a simple texture.
+		#  temp "SpriteFrames" container for it.
 		var frames = SpriteFrames.new()
 		frames.add_animation("idle")
 		frames.set_animation_loop("idle", true)
@@ -94,7 +94,7 @@ func action_slide() ->void:
 
 func _on_data_hp_changed(hp:int,change:int)->void:
 	var hit_text:Label = HIT_TEXT.instantiate()
-	hit_text.text = str(abs(change))
+	hit_text.text = str(abs(change)) if change != 0 else "MISS"
 	add_child(hit_text)
 	hit_text.position = Vector2(size.x*0.15,-10)
 	
@@ -137,3 +137,8 @@ func play_anim(anim_name: String) -> void:
 	# B. ALSO check the AnimationPlayer (for Effects like "hit" flash or recoil)
 	if _anim_player.has_animation(anim_name):
 		_anim_player.play(anim_name)
+
+func _on_walking()->void:
+	if Scenechanger.is_walking == true:
+		play_anim("walk")
+		await _sprite.animation_finished

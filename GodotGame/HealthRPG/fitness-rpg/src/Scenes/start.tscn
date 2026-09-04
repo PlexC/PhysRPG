@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://bhjm4mbu58xk3" path="res://src/Assets/Buttons/optionsButtonClick.png" id="9_dajgr"]
 [ext_resource type="Texture2D" uid="uid://bu8v7dvgokxnm" path="res://src/Assets/Buttons/optionsButtonHover.png" id="10_jwrto"]
 [ext_resource type="Texture2D" uid="uid://dkxvig56h2k5q" path="res://src/Assets/Buttons/optionsButtonDisable.png" id="11_tfraj"]
+[ext_resource type="PackedScene" uid="uid://b6f5lubm2i5oj" path="res://src/Scenes/load.tscn" id="14_dajgr"]
 
 [sub_resource type="Theme" id="Theme_ffxqt"]
 
@@ -225,6 +226,8 @@ layout_mode = 1
 offset_top = -552.0
 offset_bottom = -252.0
 theme = SubResource("Theme_ffxqt")
+
+[node name="Load" parent="." unique_id=864916405 instance=ExtResource("14_dajgr")]
 
 [connection signal="pressed" from="BG/MarginContainer/HBoxContainer/Start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="BG/MarginContainer/HBoxContainer/Load" to="." method="_on_load_pressed"]

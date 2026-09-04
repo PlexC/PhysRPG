@@ -2,8 +2,9 @@ class_name ATBBar extends ProgressBar
 
 signal filled()
 
-const SPEED_BASE: float = 0.25
+const SPEED_BASE: float = 0.1
 
+@export var speed_multiplier: float = 1.0
 @onready var _anim: AnimationPlayer = $AnimationPlayer
 
 func _ready() -> void:
@@ -19,7 +20,7 @@ func stop()->void:
 	set_process(false)
 
 func _process(_delta: float) -> void:
-	value += SPEED_BASE
+	value += SPEED_BASE*speed_multiplier
 
 	if is_equal_approx(value, max_value):
 		#get_theme_stylebox("fill").bg_color = Color("ff0000ff")

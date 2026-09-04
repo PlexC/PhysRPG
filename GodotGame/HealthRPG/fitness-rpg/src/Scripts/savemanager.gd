@@ -3,13 +3,13 @@ extends Node
 const SETTINGS_FILE = "user://settings.dat"
 const GAME_FILE = "user://savegame.dat"
 
+@onready var live_inventory: Inventory = preload("res://src/Inv/player_inv.tres")
 
 var enemies:Dictionary = {
-	"BeefLord": BattleActor.new(500,45,10,false,6.0),
-	"Bird": BattleActor.new(200,10,5),
-	"RedWolf": BattleActor.new(200,10,5),
-	"BlackWolf": BattleActor.new(200,10,5),
-	"Fox": BattleActor.new(200,10,5)
+	"Bird": BattleActor.new(50,5,1,true,1.4),
+	"RedWolf": BattleActor.new(90,7,1,true,1.4),
+	"BlackWolf": BattleActor.new(90,7,1,true,1.4),
+	"Fox": BattleActor.new(70,10,2,true,1.4)
 }
 
 var players: Dictionary = {
@@ -36,17 +36,6 @@ var game_state = {
 		"knee_smash": false,
 		"elbow" : false,
 		"secret_1": true
-	},
-	"inventory": {
-		"slot1": ["",0],
-		"slot2": ["",0],
-		"slot3": ["",0],
-		"slot4": ["",0],
-		"slot5": ["",0],
-		"slot6": ["",0],
-		"slot7": ["",0],
-		"slot8": ["",0],
-		"slot9": ["",0]
 	},
 	"player": {
 		"hp": 10,
@@ -82,6 +71,10 @@ func load_settings() -> void:
 func save_game() -> void:
 	#game_state["player"] = 
 	#game_state["current_scene"] = current_scene_path
+	if not game_state.has("inventory"):
+		game_state["inventory"] = {}
+	if not game_state.has("party_data"):
+		game_state["party_data"] = []
 	for member in party:
 		game_state["party_data"].append({
 			"name": member.name,
@@ -91,7 +84,16 @@ func save_game() -> void:
 			"xp": member.xp,
 			"gold": member.gold
 		})
+	#inv save
+	for i in range(9):
+		var slot_key = "slot" + str(i + 1)
+		var inv_slot = live_inventory.slots[i]
 		
+		if inv_slot != null and inv_slot.item != null:
+			game_state["inventory"][slot_key] = [inv_slot.item.resource_path, inv_slot.amount]
+		else:
+			game_state["inventory"][slot_key] = ["", 0]
+	
 	var file = FileAccess.open(GAME_FILE, FileAccess.WRITE)
 	file.store_var(game_state)
 	print("Game Saved!")
@@ -108,15 +110,35 @@ func load_game() -> void:
 	var loaded_party = game_state.get("party_data", [])
 	for i in range(loaded_party.size()):
 		if i < party.size():
-			var saved_member = loaded_party[i]
-			var real_member = party[i]
-			
-			real_member.hp = saved_member["hp"]
-			real_member.hp_max = saved_member["hp_max"]
-			real_member.level = saved_member["level"]
-			real_member.xp = saved_member["xp"]
-			real_member.gold = saved_member["gold"]
-			
+			party[i].hp = loaded_party[i].get("hp", party[i].hp_max)
+			party[i].hp_max = loaded_party[i].get("hp_max", party[i].hp_max)
+			party[i].level = loaded_party[i].get("level", 1)
+			party[i].xp = loaded_party[i].get("xp", 0)
+			party[i].gold = loaded_party[i].get("gold", 0)
+
+
+	var saved_inv = game_state.get("inventory", {}) 
+	for i in range(9):
+		var slot_key = "slot" + str(i + 1)
+		var saved_item_data = saved_inv.get(slot_key, ["", 0]) 
+		var item_path = saved_item_data[0] 
+		var item_amount = saved_item_data[1] 
+		
+		while live_inventory.slots.size() <= i:
+			live_inventory.slots.append(null)
+
+		var inv_slot = live_inventory.slots[i]
+		if inv_slot == null:
+			inv_slot = InvSlot.new()
+			live_inventory.slots[i] = inv_slot
+
+		if item_path != "":
+			inv_slot.item = load(item_path)
+			inv_slot.amount = item_amount
+		else:
+			inv_slot.item = null
+			inv_slot.amount = 0
+	live_inventory.update.emit()
 
 
 
@@ -127,7 +149,6 @@ func _init() -> void:
 	
 	players["Knight"].sprite_frames = load("res://src/Assets/Player/player_animation.tres")
 	
-	enemies["BeefLord"].sprite_frames = load("res://src/Assets/Enemies/BeefLord.tres")
 	enemies["Bird"].sprite_frames = load("res://src/Assets/Enemies/Bird.tres")
 	enemies["RedWolf"].sprite_frames = load("res://src/Assets/Enemies/RedWolf.tres")
 	enemies["BlackWolf"].sprite_frames = load("res://src/Assets/Enemies/BlackWolf.tres")

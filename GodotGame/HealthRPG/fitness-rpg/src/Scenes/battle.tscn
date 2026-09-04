@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://biat7h55434no" path="res://src/Scenes/tilesizer.tscn" id="1_gia42"]
 [ext_resource type="Texture2D" uid="uid://bif62dr852i2k" path="res://src/Assets/UI/Dialogbox.png" id="2_hntum"]
 [ext_resource type="Texture2D" uid="uid://byvvdaqonadsd" path="res://src/Assets/BackGrounds/Parallax/DarkForest/Layer_0009_2.png" id="4_dvr3q"]
+[ext_resource type="Script" uid="uid://dvgdajb426b2g" path="res://src/Scripts/parallax_bg.gd" id="4_yyswh"]
 [ext_resource type="Texture2D" uid="uid://ubumog2kugy8" path="res://src/Assets/BackGrounds/Parallax/DarkForest/Layer_0008_3.png" id="5_48yld"]
 [ext_resource type="Texture2D" uid="uid://c3h5lux4vixyk" path="res://src/Assets/BackGrounds/Parallax/DarkForest/Layer_0002_7.png" id="6_y7fya"]
 [ext_resource type="Texture2D" uid="uid://c51qivxr2wrlf" path="res://src/Assets/BackGrounds/Parallax/DarkForest/Layer_0004_Lights.png" id="7_yyswh"]
@@ -16,6 +17,10 @@
 [ext_resource type="PackedScene" uid="uid://di83r5141bwgu" path="res://src/Scenes/battle_player.tscn" id="14_48yld"]
 [ext_resource type="PackedScene" uid="uid://dgrfitoucd2an" path="res://src/Scenes/enemy_button.tscn" id="15_y7fya"]
 [ext_resource type="PackedScene" uid="uid://cmcfxpnl44b6g" path="res://src/Scenes/player_info_bar.tscn" id="16_y7fya"]
+[ext_resource type="PackedScene" uid="uid://nln1cr0hb7ho" path="res://src/Scenes/reward.tscn" id="18_jqjo6"]
+[ext_resource type="PackedScene" uid="uid://mcddj2ca6655" path="res://src/Scenes/down_cursor.tscn" id="19_fpa73"]
+[ext_resource type="Resource" uid="uid://3cyihxc22qr5" path="res://src/Inv/Items/potions.tres" id="19_lo8e7"]
+[ext_resource type="Resource" uid="uid://erol2tj8b5qo" path="res://src/Inv/player_inv.tres" id="20_bq0hm"]
 
 [node name="Battle" type="Control" unique_id=344356938]
 custom_minimum_size = Vector2(333, 700)
@@ -65,6 +70,7 @@ theme_override_constants/margin_bottom = 50
 
 [node name="ParallaxBG" type="ParallaxBackground" parent="MarginContainer" unique_id=532630088]
 layer = -1
+script = ExtResource("4_yyswh")
 
 [node name="BG" type="Control" parent="MarginContainer/ParallaxBG" unique_id=270045016]
 clip_contents = true
@@ -183,23 +189,23 @@ grow_vertical = 2
 [node name="EnemyButton" parent="Enemies" unique_id=2013717183 instance=ExtResource("15_y7fya")]
 layout_mode = 0
 offset_left = 665.0
-offset_top = 349.0
+offset_top = 229.0
 offset_right = 793.0
-offset_bottom = 477.0
+offset_bottom = 357.0
 
 [node name="EnemyButton2" parent="Enemies" unique_id=1705446938 instance=ExtResource("15_y7fya")]
 layout_mode = 0
 offset_left = 768.0
-offset_top = 389.0
+offset_top = 269.0
 offset_right = 896.0
-offset_bottom = 517.0
+offset_bottom = 397.0
 
 [node name="EnemyButton3" parent="Enemies" unique_id=1175150612 instance=ExtResource("15_y7fya")]
 layout_mode = 0
 offset_left = 568.0
-offset_top = 388.0
+offset_top = 268.0
 offset_right = 696.0
-offset_bottom = 516.0
+offset_bottom = 396.0
 
 [node name="PlayerInfoBar" type="Control" parent="." unique_id=776906662]
 anchors_preset = 0
@@ -212,3 +218,27 @@ offset_left = 77.0
 offset_top = 592.0
 offset_right = 599.0
 offset_bottom = 623.0
+
+[node name="VideoPicker" type="FileDialog" parent="." unique_id=1583607526]
+
+[node name="HTTPRequest" type="HTTPRequest" parent="." unique_id=1441846712]
+
+[node name="Reward" parent="." unique_id=2096760131 instance=ExtResource("18_jqjo6")]
+layer = 4
+reward_item = ExtResource("19_lo8e7")
+inv = ExtResource("20_bq0hm")
+
+[node name="DownCursor" parent="." unique_id=658336404 instance=ExtResource("19_fpa73")]
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 624.0
+offset_top = 145.0
+offset_right = 688.0
+offset_bottom = 209.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[connection signal="file_selected" from="VideoPicker" to="." method="_on_video_picker_file_selected"]
+[connection signal="request_completed" from="HTTPRequest" to="." method="_on_http_request_request_completed"]

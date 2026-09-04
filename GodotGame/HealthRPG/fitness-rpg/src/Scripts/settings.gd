@@ -4,12 +4,28 @@ extends Control
 @onready var volume_slider = $BG/MarginContainer/VBoxContainer/Volume
 @onready var timers: OptionButton = $BG/MarginContainer/VBoxContainer/Timers
 
-
+var is_open: bool = false
 
 #loads game settings save visuals to match
 func _ready() -> void:
 	sync_ui_to_settings()
+	close()
 	
+
+func toggle() -> void:
+	if is_open:
+		close()
+	else:
+		open()
+
+
+func open() -> void:
+	visible = true
+	is_open = true
+
+func close() -> void:
+	visible = false
+	is_open = false
 
 func sync_ui_to_settings() -> void:
 	volume_slider.value = Savemanager.settings["master_volume"]

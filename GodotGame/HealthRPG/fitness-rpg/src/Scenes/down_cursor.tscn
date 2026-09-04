@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://mcddj2ca6655"]
+
+[ext_resource type="Texture2D" uid="uid://caoq8a1qwxjae" path="res://src/Assets/UI/down_cursor.tres" id="1_5hmv2"]
+[ext_resource type="Script" uid="uid://dye6yxjmlf3q8" path="res://src/Scripts/down_cursor.gd" id="2_1nk34"]
+
+[node name="DownCursor" type="TextureRect" unique_id=838252608]
+custom_minimum_size = Vector2(64, 64)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1126.0
+offset_bottom = -612.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_5hmv2")
+stretch_mode = 4
+script = ExtResource("2_1nk34")
+
+[node name="FrameAdvance" type="Timer" parent="." unique_id=1700410076]
+wait_time = 0.1
+autostart = true
+
+[connection signal="timeout" from="FrameAdvance" to="." method="_on_frame_advance_timeout"]

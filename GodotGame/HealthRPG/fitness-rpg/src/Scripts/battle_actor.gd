@@ -36,7 +36,8 @@ func set_name_custom(value:String)->void:
 	
 	if !friendly:
 		var name_formatted:String = name.to_lower().replace(" ","_")
-		texture = load("res://Assets/Enemies/"+name_formatted+".png")
+		texture = load("res://src/Assets/Enemies/"+name_formatted+".png")
+
 
 func duplicate_custom() -> BattleActor:
 	var dup: BattleActor = self.duplicate()
@@ -65,6 +66,9 @@ func healhurt(value:int) -> void:
 	
 	if !has_hp():
 		defeated.emit()
+
+func miss():
+	hp_changed.emit(0)
 
 func has_hp() -> bool:
 	return hp >0

@@ -1,5 +1,8 @@
 extends Control
 
+#_down_cursor.show()
+		#_down_cursor.global_position = _enemies_menu.get_children()[index].global_position - Vector2(-35,80)
+
 enum States{
 	OPTIONS,
 	TARGETS,
@@ -11,6 +14,8 @@ enum States{
 enum Actions{
 	FIGHT,
 	ITEMS,
+	MISS,
+	SKIP
 }
 
 enum{
@@ -24,20 +29,43 @@ var player_atb_queue: Array = []
 var event_queue: Array = []
 var event_running:bool = false
 var action: Actions = Actions.FIGHT
+var miss: Actions = Actions.MISS
 var player: BattleActor = null
-
+var pending_target: BattleActor = null
+var current_skill_name: String = ""
 
 @onready var _options: Control = $Options
 #@onready var _options_menu: Control = $Options/Menu
 @onready var _enemies_menu: Control = $Enemies
 @onready var _players_menu: Control = $Player
 @onready var _players_infos: Array = $PlayerInfoBar.get_children()
+@onready var http_request: HTTPRequest = $"HTTPRequest"
+@onready var video_picker: FileDialog = $"VideoPicker"
+@onready var reward: CanvasLayer = $Reward
+@onready var skills: Skills = $Options/Skills
+@onready var _down_cursor: TextureRect = $DownCursor
+@onready var inventory_ui: Control = $"../../../Inventory/"
+
+
 
 
 func _ready() -> void:
-	#Musicmanager.play("res://Utility/battle.mp3"
+	#Musicmanager.play("res://Utility/battle.mp3")
 	#_options.hide()
-	
+	Savemanager.load_game()
+	video_picker.file_mode = FileDialog.FILE_MODE_OPEN_FILE
+	video_picker.access = FileDialog.ACCESS_FILESYSTEM
+	_down_cursor.hide()
+	_down_cursor.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	if skills:
+		if not skills.skill_selected.is_connected(_on_skill_selected):
+			skills.skill_selected.connect(_on_skill_selected)
+			
+	Scenechanger.pending_enemy_data = [
+				Savemanager.enemies.values().pick_random().duplicate_custom(),
+				Savemanager.enemies.values().pick_random().duplicate_custom(),
+				Savemanager.enemies.values().pick_random().duplicate_custom()
+				]
 	var player_buttons = _players_menu.get_children()
 	var enemy_buttons = _enemies_menu.get_children()
 	##GRAB DATA 
@@ -46,7 +74,7 @@ func _ready() -> void:
 	## Safety Fallback (Test Mode)
 	#if battle_squad.is_empty():
 		#battle_squad = [Data.enemies["BeefLord"].duplicate_custom()]
-	
+	inventory_ui.item_used.connect(_on_inventory_item_used)
 	for i in range(enemy_buttons.size()):
 		if i < battle_squad.size():
 			var enemy_data = battle_squad[i]
@@ -54,9 +82,17 @@ func _ready() -> void:
 			# Connect Signals
 			enemy_buttons[i].atb_ready.connect(_on_enemy_atb_ready.bind(enemy_data))
 			enemy_data.defeated.connect(_on_battle_actor_defeated.bind(enemy_data))
+			if not enemy_buttons[i].pressed.is_connected(_on_enemeies_button_pressed):
+				enemy_buttons[i].pressed.connect(_on_enemeies_button_pressed.bind(enemy_buttons[i], i))
 			
 			# Ensure button is visible
 			enemy_buttons[i].show()
+			enemy_buttons[i].reset()
+			enemy_buttons[i].focus_mode = Control.FOCUS_ALL 
+			# Make the cursor follow both keyboard focus AND mouse hovers
+			enemy_buttons[i].focus_entered.connect(_on_enemy_targeted.bind(enemy_buttons[i]))
+			enemy_buttons[i].mouse_entered.connect(enemy_buttons[i].grab_focus)
+			
 		else:
 			# Hide unused buttons (e.g. if only 1 boss)
 			enemy_buttons[i].hide()
@@ -76,6 +112,7 @@ func _ready() -> void:
 			enemy_button.atb_ready.connect(_on_enemy_atb_ready.bind(enemy_button.data))
 		if not data.defeated.is_connected(_on_battle_actor_defeated):
 			data.defeated.connect(_on_battle_actor_defeated.bind(data))
+	
 #func _on_Option_button_focused(button: BaseButton) -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -90,6 +127,18 @@ func _unhandled_input(event: InputEvent) -> void:
 		#if SceneManager.is_boss_battle:
 			#return
 		force_victory()
+	if event.is_action_pressed("skip"):
+		if pending_target:
+			print("Playtest Skip: Executing weak attack!")
+			add_event([player, pending_target, Actions.SKIP])
+			advance_atb_queue()
+
+
+func _on_enemy_targeted(enemy_btn: EnemyButton) -> void:
+	if state == States.TARGETS:
+		_down_cursor.show()
+		_down_cursor.global_position = enemy_btn.global_position - Vector2(-35, 80)
+
 
 func force_victory() -> void:
 	print("DEBUG: Auto-Win Triggered")
@@ -123,9 +172,11 @@ func find_valid_target(target: BattleActor)->BattleActor:
 
 func end() -> void:
 	#end of battle
+	
 		event_queue.clear()
 		player_atb_queue.clear()
-		_options.hide()
+		#_options.hide()
+		_down_cursor.hide()
 		await get_tree().create_timer(0.2).timeout
 		#await get_tree().physics_frame
 		for player_info in _players_infos:
@@ -136,13 +187,31 @@ func end() -> void:
 		match state:
 			States.VICTORY:
 			# Give Rewards (Fake for now)
-				for member in Savemanager.party:
-						member.hp = member.hp_max
-						print("Victory! Gained XP and Gold.")
-				
-			
-			States.GAMEOVER:
+				#for member in Savemanager.party:
+						#member.hp = member.hp_max
+				print("Victory! Gained XP and Gold and a Potion.")
+				for enemy in _enemies_menu.get_children():
+					enemy.hide()
+				await reward.get_reward()
+				Savemanager.save_game()
+				state = States.BETWEEN
+				Scenechanger.is_walking = true
+				for player_btn in _players_menu.get_children():
+					if player_btn.has_method("_on_walking"):
+						player_btn._on_walking()
+				await get_tree().create_timer(2.0).timeout
+				Scenechanger.is_walking = false
+				#get new enemies
+				var new_squad = [
+				Savemanager.enemies.values().pick_random().duplicate_custom(),
+				Savemanager.enemies.values().pick_random().duplicate_custom(),
+				Savemanager.enemies.values().pick_random().duplicate_custom()
+				]
+				Scenechanger.pending_enemy_data = new_squad
+				get_tree().reload_current_scene()
 
+
+			States.GAMEOVER:
 				#normal
 				for member in Savemanager.party:
 					member.hp = member.hp_max
@@ -163,13 +232,15 @@ func advance_atb_queue(remove_front:bool = true) -> void:
 		current_player_info_bar.highlight(false)
 	
 	if player_atb_queue.is_empty():
+		_down_cursor.hide()
 		get_viewport().gui_release_focus()
 	else:
 		var next_player_info_bar: PlayerInfoBar = player_atb_queue.front()
 		var index:int = next_player_info_bar.get_index()
 		next_player_info_bar.highlight()
 		player = Savemanager.party[index]
-		_options.show()
+		_down_cursor.hide()
+		#_options.show()
 		#_options_menu.button_focus(0)
 
 func wait(duration:float)->void:
@@ -206,6 +277,10 @@ func run_event()->void:
 	match event[ACTION]:
 		Actions.FIGHT:
 			target.healhurt(-actor.strength)
+		Actions.MISS:
+			target.miss()
+		Actions.SKIP:
+			target.healhurt(-int(actor.strength / 3.0))
 		_:
 			pass
 	await get_tree().create_timer(0.5).timeout
@@ -254,10 +329,71 @@ func _on_enemy_atb_ready(enemy: BattleActor) -> void:
 
 func _on_enemeies_button_pressed(button: EnemyButton,index: int) -> void:
 	#TODO store event here
-	var target: BattleActor = button.data
-	add_event([player, target, action])
+	if state != States.TARGETS:
+		return
+	video_picker.popup_centered(Vector2(600, 400))
+	pending_target = button.data
+	
+	#add_event([player, pending_target, action])
+	#advance_atb_queue()
+
+func _on_video_picker_file_selected(path: String):
+	print("Uploading video for AI grading...")
+	# 1. Read the video file from drive
+	var video_bytes = FileAccess.get_file_as_bytes(path)
+	# 2. Format the header for raw data
+	var headers = ["Content-Type: application/octet-stream"] 
+	# 3. Send to Python (Change 'squat' to a dynamic skill name later)
+	var url = "http://127.0.0.1:8000/evaluate_skill/" + current_skill_name
+	http_request.request_raw(url, headers, HTTPClient.METHOD_POST, video_bytes)
+
+func _on_http_request_request_completed(result, response_code, headers, body):
+	# 1. Safety Buffer: Server offline or rejected the request
+	if response_code != 200:
+		print("Server error (", response_code, ")! Fallback to weak attack.")
+		add_event([player, pending_target, Actions.SKIP])
+		advance_atb_queue()
+		return
+		
+	# 2. Parse JSON
+	var json = JSON.new()
+	var parse_error = json.parse(body.get_string_from_utf8())
+	
+	# Safety Buffer: Backend sent broken data
+	if parse_error != OK:
+		print("Broken server response! Fallback to weak attack.")
+		add_event([player, pending_target, Actions.SKIP])
+		advance_atb_queue()
+		return
+		
+	# 3. Normal AI Grading
+	var response = json.get_data()
+	# Using .get() prevents crashes if the dictionary is missing these keys
+	if response.get("success", false) == true and response.get("score", 0) >= 70:
+		print("Good form! Attack hits!")
+		add_event([player, pending_target, Actions.FIGHT])
+	else:
+		print("Bad form! Attack missed!")
+		add_event([player, pending_target, Actions.MISS])
+		
 	advance_atb_queue()
 
+
+
+func _on_skill_selected(skill_key: String) -> void:
+	var enemies = _enemies_menu.get_children()
+	if enemies.is_empty():
+		return
+	# 1. Save the skill name for the video upload
+	current_skill_name = skill_key 
+	# 2. Change state to TARGETS so clicking an enemy opens the camera
+	action = Actions.FIGHT
+	state = States.TARGETS
+	print("Skill : ", current_skill_name, ". Now pick an enemy!")
+	for enemy in enemies:
+		if enemy.visible:
+			enemy.grab_focus()
+			break
 
 func _on_players_button_pressed(button: PlayerButton,index: int) -> void:
 	#TODO store event here
@@ -274,3 +410,8 @@ func _on_battle_actor_defeated(data: BattleActor) -> void:
 	if player_index != -1:
 		var player_info: PlayerInfoBar =  _players_infos[player_index]
 		player_atb_queue.erase(player_info)
+
+func _on_inventory_item_used() -> void:
+	print("Item used! Turn over.")
+	_players_infos[Savemanager.party.find(player)].reset()
+	advance_atb_queue()

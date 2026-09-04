@@ -25,4 +25,4 @@ script = ExtResource("2_togoy")
 position = Vector2(62, 73)
 scale = Vector2(3, 3)
 sprite_frames = ExtResource("4_togoy")
-animation = &"walk"
+animation = &"idle"

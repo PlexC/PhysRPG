@@ -6,6 +6,7 @@ var is_boss_battle: bool = false
 var pending_enemy_data: Array = []
 var _player: AudioStreamPlayer
 var _current_track_path: String = ""
+var is_walking: bool = false
 
 func _ready():
 	# This fires EVERY time the scene changes

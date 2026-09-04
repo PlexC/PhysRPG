@@ -19,8 +19,8 @@ config/icon="res://icon.svg"
 
 Savemanager="*uid://bllabhrcj5ohc"
 Scenechanger="*uid://0r78s1auvvhq"
-Load="*uid://cmjyyxmfwryur"
 Globals="*uid://qavjldaudkjt"
+Load="*uid://b6f5lubm2i5oj"
 
 [display]
 
@@ -30,6 +30,19 @@ window/size/viewport_height=1152
 [gui]
 
 theme/custom_font="uid://b20tav8cxnxiw"
+
+[input]
+
+debug_win={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":90,"key_label":0,"unicode":122,"location":0,"echo":false,"script":null)
+]
+}
+skip={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":83,"key_label":0,"unicode":115,"location":0,"echo":false,"script":null)
+]
+}
 
 [physics]
 
