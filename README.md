@@ -37,3 +37,28 @@ Our decoupled architecture ensures that **zero biometric frames ever leave the u
                      [ Game Action / ATB ]                                [ Flower Central Server ]
                      (Punch, Squat, Heal)                                   (Aggregates via FedAvg)
                                                                            *ZERO raw video uploaded*
+```
+
+## Tech Stack
+* **Frontend Game Engine:** Godot 4, GDScript
+* **Edge AI Backend:** Python, FastAPI, Uvicorn
+* **Computer Vision:** Google MediaPipe (Tasks API), OpenCV
+* **Responsible AI / Machine Learning:** PyTorch, Flower (`flwr`) Federated Learning Architecture
+
+## Installation & Setup
+To run this project locally, you will need **Godot 4.x** and **Python 3.8+** installed.
+
+### 1. Setup the Local AI Backend
+Open your terminal and navigate to the backend folder:
+
+```bash
+# Clone the repository
+git clone [https://github.com/YOUR_USERNAME/PhysRPG.git](https://github.com/YOUR_USERNAME/PhysRPG.git)
+cd PhysRPG/backend
+
+# Install required Python dependencies
+pip install fastapi uvicorn torch mediapipe opencv-python flwr
+
+# Start the local Edge AI microservice
+python main.py
+```
